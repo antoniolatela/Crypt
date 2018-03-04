@@ -35,7 +35,7 @@ class CryptoImplementation(e:String) {
         .foreach(a=>{if (s0.indexOf(a)!=(-1)) out.write(s1(s0.indexOf(a))) else out.write(a)})
         out.write("\n")})
     out.close()
-    print(s"File %s $e in file %s".format(s3, s4))
+    println(s"File %s $e in file %s".format(s3, s4))
   }
 }
 
