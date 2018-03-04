@@ -3,7 +3,6 @@ import scala.io.Source
 
 class Crypt (method:String, key:String, fin:String, fout:String) {
   private val ABC = ('A' to 'z').toStream.toList
-  print(ABC)
   private var encABC: String = ""
   if (!key.isEmpty) (
     key.
