@@ -2,48 +2,41 @@ import java.io._
 import scala.io.Source
 
 class Crypt (method:String, key:String, fin:String, fout:String) {
-  private val ABC = ('A' to 'z').toStream.toList
-  private var encABC: String = ""
+  private val ABC = ('A' to 'z').toStream.mkString
+  private var encABC = ""
+
   if (!key.isEmpty) (
     key.
-    map(a=>if(!encABC.contains(a)) encABC+=a.toString)
-      + (('A' to 'z')
-    .reverse
-    .toStream
-    .foreach(a=>if (encABC.length<=57 && !encABC.contains(a)) encABC+=a.toString))
-    .toString)
+      foreach(
+      a=> if(!encABC.contains(a)) encABC+=a.toString)
+      + ('A' to 'z')
+      .reverse
+      .foreach(a => if (encABC.length <= 57 && !encABC.contains(a)) encABC+=a.toString)
+      .toString)
   else throw new CryptException("[ERROR]: key could not be empty")
 
   method match {
-    case "-e"  => enc
-    case "-d"  => dec
+    case "-e"  => CryptDecrypt(new CryptoImplementation("encripted").CryptDecrypt, ABC, encABC, fin, fout)
+    case "-d"  => CryptDecrypt(new CryptoImplementation("decrypted").CryptDecrypt, encABC, ABC, fin, fout)
     case _ => throw new CryptException("[ERROR]: Method not recognized -> use -e to encrypt and -d to decrypt")
   }
 
-  def enc = {
-    val out = new PrintWriter(new File(fout))
+  def CryptDecrypt(f: (String, String, String, String)
+    => Unit, v0: String, v1: String, v3: String, v4: String):Unit = f(v0, v1, v3, v4)
+}
+
+class CryptoImplementation(e:String) {
+  def CryptDecrypt(s0:String, s1:String, s3:String, s4:String) = {
+    val out = new PrintWriter(new File(s4))
     Source
-      .fromFile(fin)
+      .fromFile(s3)
       .getLines()
       .foreach(line => {line
-        .foreach(a=>{if (ABC.indexOf(a)!=(-1)) out.write(encABC(ABC.indexOf(a))) else out.write(a)})
+        .foreach(a=>{if (s0.indexOf(a)!=(-1)) out.write(s1(s0.indexOf(a))) else out.write(a)})
         out.write("\n")})
     out.close()
-    print("File %s encrypted in file %s".format(fin, fout))
+    print("File %s {$e} in file %s".format(s3, s4))
   }
-
-  def dec = {
-    val out = new PrintWriter(new File(fout))
-    Source
-      .fromFile(fin)
-      .getLines()
-      .foreach(line => {line
-        .foreach(a=>{if (encABC.indexOf(a)!=(-1)) out.write(ABC(encABC.indexOf(a))) else out.write(a)})
-        out.write("\n")})
-    out.close()
-    print("File %s decrypted in file %s".format(fin, fout))
-  }
-
 }
 
 private class CryptException(exMsg:String) extends Exception(exMsg)
