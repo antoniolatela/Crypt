@@ -29,11 +29,11 @@ class Crypt (method:String, key:String, fin:String, fout:String) {
         .foreach(a=>{if (ABC.indexOf(a)!=(-1)) out.write(encABC(ABC.indexOf(a))) else out.write(a)})
         out.write("\n")})
     out.close()
+    print("File %s encrypted in file %s".format(fin, fout))
   }
 
   def dec = {
     val out = new PrintWriter(new File(fout))
-    print(ABC.indexOf('z'))
     Source
       .fromFile(fin)
       .getLines()
@@ -41,12 +41,12 @@ class Crypt (method:String, key:String, fin:String, fout:String) {
         .foreach(a=>{if (encABC.indexOf(a)!=(-1)) out.write(ABC(encABC.indexOf(a))) else out.write(a)})
         out.write("\n")})
     out.close()
+    print("File %s decrypted in file %s".format(fin, fout))
   }
 
 }
 
 private class CryptException(exMsg:String) extends Exception(exMsg)
-
 
 object Crypt extends App {
   override def main(args: Array[String]): Unit = {
