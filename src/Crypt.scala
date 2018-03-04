@@ -2,15 +2,15 @@ import java.io._
 import scala.io.Source
 
 class Crypt (method:String, key:String, fin:String, fout:String) {
-
-  private var alphabet: String = ""
+  private val ABC = ('a' to 'z').toStream.toList
+  private var encABC: String = ""
   if (!key.isEmpty) (
     key.
-    map(a=>if(!alphabet.contains(a)) alphabet+=a.toString)
+    map(a=>if(!encABC.contains(a)) encABC+=a.toString)
       + (('a' to 'z')
     .reverse
     .toStream
-    .foreach(a=>if (alphabet.length<=25 && !alphabet.contains(a)) alphabet+=a.toString))
+    .foreach(a=>if (encABC.length<=25 && !encABC.contains(a)) encABC+=a.toString))
     .toString)
   else throw new CryptException("[ERROR]: key could not be empty")
 
@@ -22,25 +22,23 @@ class Crypt (method:String, key:String, fin:String, fout:String) {
 
   def enc = {
     val out = new PrintWriter(new File(fout))
-    val AtoZ = ('a' to 'z').toStream.toList
     Source
       .fromFile(fin)
       .getLines()
       .foreach(line => {line
-        .foreach(a=>{if (AtoZ.indexOf(a)!=(-1)) out.write(alphabet(AtoZ.indexOf(a))) else out.write(a)})
+        .foreach(a=>{if (ABC.indexOf(a)!=(-1)) out.write(encABC(ABC.indexOf(a))) else out.write(a)})
         out.write("\n")})
     out.close()
   }
 
   def dec = {
     val out = new PrintWriter(new File(fout))
-    val AtoZ = ('a' to 'z').toStream.toList
-    print(AtoZ.indexOf('z'))
+    print(ABC.indexOf('z'))
     Source
       .fromFile(fin)
       .getLines()
       .foreach(line => {line
-        .foreach(a=>{if (alphabet.indexOf(a)!=(-1)) out.write(AtoZ(alphabet.indexOf(a))) else out.write(a)})
+        .foreach(a=>{if (encABC.indexOf(a)!=(-1)) out.write(ABC(encABC.indexOf(a))) else out.write(a)})
         out.write("\n")})
     out.close()
   }
