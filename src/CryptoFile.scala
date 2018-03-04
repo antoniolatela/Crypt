@@ -33,7 +33,7 @@ class CryptoImplementation(e:String){//constructor take method description type
               if (s0.indexOf(a) != (-1)) out.write(s1(s0.indexOf(a))) else out.write(a)}) //write decoded char
           out.write("\n")})
       out.close()
-      println(s"File %s $e in file %s".format(s3, s4)) //write output
+      println(s"[INFO]: File %s $e in file %s".format(s3, s4)) //write output
       true //return if ok
     } catch {
       case _: Exception => throw new CryptException("[ERROR]: Problem converting file")
