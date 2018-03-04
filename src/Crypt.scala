@@ -43,6 +43,6 @@ private class CryptException(exMsg:String) extends Exception(exMsg)
 
 object Crypt extends App {
   override def main(args: Array[String]): Unit = {
-    var c = new Crypt(args(0), args(1).substring(2,args(1).length()), args(2), args(3));
+    new Crypt(args(0), args(1).substring(2,args(1).length()), args(2), args(3));
   }
 }
