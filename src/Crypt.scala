@@ -2,15 +2,16 @@ import java.io._
 import scala.io.Source
 
 class Crypt (method:String, key:String, fin:String, fout:String) {
-  private val ABC = ('a' to 'z').toStream.toList
+  private val ABC = ('A' to 'z').toStream.toList
+  print(ABC)
   private var encABC: String = ""
   if (!key.isEmpty) (
     key.
     map(a=>if(!encABC.contains(a)) encABC+=a.toString)
-      + (('a' to 'z')
+      + (('A' to 'z')
     .reverse
     .toStream
-    .foreach(a=>if (encABC.length<=25 && !encABC.contains(a)) encABC+=a.toString))
+    .foreach(a=>if (encABC.length<=57 && !encABC.contains(a)) encABC+=a.toString))
     .toString)
   else throw new CryptException("[ERROR]: key could not be empty")
 
