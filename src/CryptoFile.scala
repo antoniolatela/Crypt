@@ -47,8 +47,8 @@ class CryptoFileImplementation(e:String){//constructor take method description t
 
 private class CryptoFileException(exMsg:String) extends Exception(exMsg)
 
-object CryptoFile extends App {
-  override def main(args: Array[String]): Unit = {
+object CryptoFile {
+  def main(args: Array[String]): Unit = {
     if (args.length<4) throw new CryptoFileException("[ERROR]: Missing attribute. Exec: Crypt [-d; -e] -k[key_value] input_file output_file")
     new CryptoFile(args(0), args(1).substring(2,args(1).length()), args(2), args(3));
   }
