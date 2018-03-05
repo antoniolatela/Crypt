@@ -13,6 +13,10 @@ object CaesarDeCipher {
     out
   }
 
+  def decipher(s:String) {
+
+  }
+
   def main(args: Array[String]): Unit = {
     println(encipher("aaa aaa zzz zzz xxx xxx yyy yyy frank zappa 1", 1))
     println(encipher1("aaa aaa zzz zzz xxx xxx yyy yyy frank zappa 1", 1))
