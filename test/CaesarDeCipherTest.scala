@@ -4,10 +4,8 @@ class CaesarDeCipherTest extends FunSuite {
 
   test("testEncipher") {
     assert(CaesarDeCipher.encipher("aaA",1).equals("bbB"))
+    assert(CaesarDeCipher.encipher("zZz",1).equals("aAa"))
   }
 
-  test("testEncipher1") {
-    assert(CaesarDeCipher.encipher1("zZz",1).equals("aAa"))
-  }
 
 }
