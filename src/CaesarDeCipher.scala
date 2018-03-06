@@ -23,20 +23,30 @@ object CaesarDeCipher {
     decode(getDecodedString, s, n)
   }
 
-  def decipher(s:String) {
-    var score:Double = 0
-    for (i <- 1 to 25) getScore(decode(getDecodedString, s, i))
+  def decipher(s:String):String = {
+    var out:String = decode(getDecodedString, s, 1)
+    var score:BigDecimal = 100D
+    score = getScore(decode(getDecodedString, s, 1))
 
-    def getScore (in:String): Unit ={
-      var x:Double = CharChiTest.evaluate(in)
-      if (x < score) score = x
-      if (x<5) println(x + " " + in)
+    for (i <- 2 to 25) {
+      if (getScore(decode(getDecodedString, s, i))<score) {
+        score = getScore(decode(getDecodedString, s, i))
+        out = decode(getDecodedString, s, i)
+      }
     }
+
+    def getScore(in: String): BigDecimal = {
+      LetterFreqChiTest.evaluate(in)
+    }
+
+    out
   }
 
+
   def main(args: Array[String]): Unit = {
-    println(encipher("how are you", 5))
-    println(decipher("mtb fwj dtz"))
+    println(encipher("An education is what remains after we forget everything we have learned.", 7))
+    println(decipher("Hu lkbjhapvu pz doha ylthpuz hmaly dl mvynla clyfaopun dl ohcl slhyulk."))
+    println(decipher("Bzdrzq bhogdq? H oqdedq Bzdrzq rzkzc."))
   }
 
 }
