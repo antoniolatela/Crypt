@@ -28,7 +28,7 @@ object CaesarDeCipher {
     for (i <- 1 to 25) getScore(decode(getDecodedString, s, i))
 
     def getScore (in:String): Unit ={
-      var x:Double = testChi.scoreString(in)
+      var x:Double = testChi.evaluate(in)
       if (x < score) score = x
       if (x<5) println(x + " " + in)
     }
